@@ -10,24 +10,20 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Component
 public class FeignErrorDecoder implements ErrorDecoder {
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    Logger logger = LoggerFactory.getLogger(FeignErrorDecoder.class);
 
     @Override
     public Exception decode(String methodKey, Response response) {
 
-        switch (response.status()){
-            case 400:
-                logger.error("Status code " + response.status() + ", methodKey = " + methodKey);
-            case 404:
-            {
-                return new ResponseStatusException(HttpStatus.valueOf(response.status()), "Not found");
-            }
-            case 503:
-            {
+        logger.error("Status code " + response.status() + ", methodKey = " + methodKey);
+
+        switch (response.status()) {
+            case 503: {
                 return new ResponseStatusException(HttpStatus.valueOf(response.status()), response.reason() + " -> " + response.request().url());
             }
             default:
-                return new Exception(response.reason());
+                return new ResponseStatusException(HttpStatus.valueOf(response.status()),response.reason());
         }
     }
 }
