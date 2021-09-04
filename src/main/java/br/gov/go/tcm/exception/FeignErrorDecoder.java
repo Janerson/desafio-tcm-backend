@@ -20,8 +20,8 @@ public class FeignErrorDecoder implements ErrorDecoder {
 
         switch (response.status()) {
             case 503: {
-                logger.error("Status code 503 ERRO API TCM" + response.status() + ", methodKey = " + methodKey);
-                exception = new ResponseStatusException(HttpStatus.valueOf(response.status()), response.reason() + " -> " + response.request().url());
+                logger.error("ERRO API TCM " + response.status() + ", methodKey = " + methodKey);
+                exception = new ResponseStatusException(HttpStatus.valueOf(417), response.reason() + " -> " + response.request().url());
                 break;
             }
             default:
