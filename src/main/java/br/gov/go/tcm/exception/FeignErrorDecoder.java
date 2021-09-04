@@ -16,14 +16,19 @@ public class FeignErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
 
+        ResponseStatusException exception = null;
+
         logger.error("Status code " + response.status() + ", methodKey = " + methodKey);
 
         switch (response.status()) {
             case 503: {
-                return new ResponseStatusException(HttpStatus.valueOf(response.status()), response.reason() + " -> " + response.request().url());
+                logger.error("Status code 503 ERRO TCM" + response.status() + ", methodKey = " + methodKey);
+                exception = new ResponseStatusException(HttpStatus.valueOf(response.status()), response.reason() + " -> " + response.request().url());
+                break;
             }
             default:
-                return new ResponseStatusException(HttpStatus.valueOf(response.status()),response.reason());
+                exception = new ResponseStatusException(HttpStatus.valueOf(response.status()),response.reason());
         }
+        return exception;
     }
 }
