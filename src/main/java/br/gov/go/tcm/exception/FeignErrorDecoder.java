@@ -24,7 +24,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
             }
             case 503:
             {
-                return new ResponseStatusException(HttpStatus.valueOf(response.status()), response.reason() + " " + response.request().url());
+                return new ResponseStatusException(HttpStatus.valueOf(response.status()), response.reason() + " -> " + response.request().url());
             }
             default:
                 return new Exception(response.reason());
