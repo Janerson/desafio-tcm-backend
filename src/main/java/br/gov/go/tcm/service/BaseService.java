@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class BaseService<T> {
@@ -24,15 +25,7 @@ public abstract class BaseService<T> {
                 lista.size());
     }
 
-    public static boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            Double.parseDouble(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
+    public boolean filtrar(String query, String... campo) {
+        return Arrays.stream(campo).anyMatch(s -> s.toUpperCase().contains(query));
     }
 }

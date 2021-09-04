@@ -20,8 +20,7 @@ public class MunicipioService extends BaseService<MunicipioDTO> {
 
 
     public Page<MunicipioDTO> listarPaginado(String query, Pageable pageable) {
-        List<MunicipioDTO> municipios = Objects.isNull(query) ? listarTodos(): pesquisarPorQuery(query);
-
+        List<MunicipioDTO> municipios = Objects.isNull(query) ? listarTodos() : pesquisarPorQuery(query);
         return paginador(municipios, pageable);
     }
 
@@ -32,8 +31,9 @@ public class MunicipioService extends BaseService<MunicipioDTO> {
     public List<MunicipioDTO> pesquisarPorQuery(String query) {
         return listarTodos()
                 .stream()
-                .filter(m -> m.getMunicipio().toUpperCase().contains(query.toUpperCase())
-                        || m.getCodigoIBGE().toString().contains(query))
+                /*.filter(m -> m.getMunicipio().toUpperCase().contains(query.toUpperCase())
+                        || m.getCodigoIBGE().toString().contains(query))*/
+                .filter(m -> filtrar(query, m.getMunicipio(), m.getCodigoIBGE().toString()))
                 .collect(Collectors.toList());
     }
 
