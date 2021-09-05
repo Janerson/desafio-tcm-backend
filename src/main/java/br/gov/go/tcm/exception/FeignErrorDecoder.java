@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-@Component
-public class FeignErrorDecoder implements ErrorDecoder {
+//@Component
+public class FeignErrorDecoder /*implements ErrorDecoder*/ {
 
     Logger logger = LoggerFactory.getLogger(FeignErrorDecoder.class);
 
