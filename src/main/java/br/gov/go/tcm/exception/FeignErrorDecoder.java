@@ -13,7 +13,7 @@ public class FeignErrorDecoder /*implements ErrorDecoder*/ {
 
     Logger logger = LoggerFactory.getLogger(FeignErrorDecoder.class);
 
-    @Override
+  //  @Override
     public Exception decode(String methodKey, Response response) {
 
         ResponseStatusException exception = null;
