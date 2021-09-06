@@ -21,7 +21,7 @@ public class MunicipioContoller {
     private LegislacaoService legislacaoService;
 
 
-    @GetMapping("/listar-paginado")
+    @GetMapping("/listar")
     public Page<MunicipioDTO> listarPaginado(@RequestParam String query, Pageable pageable) {
         return municipioService.listarPaginado(query,pageable);
     }
@@ -32,7 +32,7 @@ public class MunicipioContoller {
                 .orElseThrow(() -> new RuntimeException("Município não localizado."));
     }
 
-    @GetMapping("/{codigoIbge}/legislacoes/paginado")
+    @GetMapping("/{codigoIbge}/legislacoes")
     public Page<LegislacaoDTO> listarLegislacoes(@PathVariable("codigoIbge") Integer codigoIbge, @RequestParam String query, Pageable pageable) {
         return legislacaoService.listarLegislacoesPaginado(codigoIbge,query,pageable);
     }
