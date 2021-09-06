@@ -2,13 +2,15 @@ package br.gov.go.tcm.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class LegislacaoDTO {
 
     private String arquivoPrincipalNorma;
     private String municipio;
     private Long anoNorma;
-    private String dataEnvio;
+    private LocalDate dataEnvio;
     private String unidadeGestora;
     private String tipoNorma;
     private String detalhamentoNorma;

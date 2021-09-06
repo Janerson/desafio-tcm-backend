@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,8 +19,8 @@ public class MunicipioService extends BaseService<MunicipioDTO> {
 
 
     public Page<MunicipioDTO> listarPaginado(String query, Pageable pageable) {
-        List<MunicipioDTO> municipios = Objects.isNull(query) ? listarTodos() : pesquisarPorQuery(query);
-        return paginador(municipios, pageable);
+        //List<MunicipioDTO> municipios = Objects.isNull(query) ? listarTodos() : pesquisarPorQuery(query);
+        return paginador(pesquisarPorQuery(query), pageable);
     }
 
     public List<MunicipioDTO> listarTodos() {
@@ -31,8 +30,6 @@ public class MunicipioService extends BaseService<MunicipioDTO> {
     public List<MunicipioDTO> pesquisarPorQuery(String query) {
         return listarTodos()
                 .stream()
-                /*.filter(m -> m.getMunicipio().toUpperCase().contains(query.toUpperCase())
-                        || m.getCodigoIBGE().toString().contains(query))*/
                 .filter(m -> filtrar(query, m.getMunicipio(), m.getCodigoIBGE().toString()))
                 .collect(Collectors.toList());
     }

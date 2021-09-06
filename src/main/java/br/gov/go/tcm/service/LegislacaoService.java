@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,11 +17,10 @@ public class LegislacaoService extends BaseService<LegislacaoDTO> {
     private LegislacaoConsumer consumer;
 
     public Page<LegislacaoDTO> listarLegislacoesPaginado(Integer codigoIbge, String query, Pageable pageable) {
-        List<LegislacaoDTO> lista = Objects.nonNull(query)
+       /* List<LegislacaoDTO> lista = Objects.nonNull(query)
                 ? listarLegislacoesQuery(codigoIbge, query)
-                : listarLegislacoesCodIbge(codigoIbge);
-
-        return paginador(lista, pageable);
+                : listarLegislacoesCodIbge(codigoIbge);*/
+        return paginador(listarLegislacoesQuery(codigoIbge, query), pageable);
     }
 
     public List<LegislacaoDTO> listarLegislacoesCodIbge(Integer codigoIbge) {
@@ -35,7 +33,7 @@ public class LegislacaoService extends BaseService<LegislacaoDTO> {
                 .filter(l -> filtrar(query,
                         l.getMunicipio(),
                         l.getAnoNorma().toString(),
-                        l.getDataEnvio(),
+                        l.getDataEnvio().toString(),
                         l.getUnidadeGestora(),
                         l.getTipoNorma(),
                         l.getDetalhamentoNorma(),
