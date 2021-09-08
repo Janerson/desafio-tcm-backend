@@ -17,23 +17,16 @@ public class LegislacaoService extends BaseService<LegislacaoDTO> {
     private LegislacaoConsumer consumer;
 
     public Page<LegislacaoDTO> listarLegislacoesPaginado(Integer codigoIbge, String query, Pageable pageable) {
-       /* List<LegislacaoDTO> lista = Objects.nonNull(query)
-                ? listarLegislacoesQuery(codigoIbge, query)
-                : listarLegislacoesCodIbge(codigoIbge);*/
         return paginador(listarLegislacoesQuery(codigoIbge, query), pageable);
-    }
-
-    public List<LegislacaoDTO> listarLegislacoesCodIbge(Integer codigoIbge) {
-        return consumer.listarLegislacoes(codigoIbge);
     }
 
     public List<LegislacaoDTO> listarLegislacoesQuery(Integer codigoIbge, String query) {
         return consumer.listarLegislacoes(codigoIbge)
                 .stream()
                 .filter(l -> filtrar(query,
-                        l.getMunicipio(),
+                        l.getRepresentante(),
                         l.getAnoNorma().toString(),
-                        l.getDataEnvio().toString(),
+                        l.getDataEnvio(),
                         l.getUnidadeGestora(),
                         l.getTipoNorma(),
                         l.getDetalhamentoNorma(),

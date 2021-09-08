@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +27,13 @@ public abstract class BaseService<T> {
     }
 
     public boolean filtrar(String query, String... campo) {
-        return Arrays.stream(campo).anyMatch(s -> s.toUpperCase().contains(query));
+        return Arrays.stream(campo).anyMatch(s -> normalizer(s).contains(normalizer(query)));
+    }
+
+    public String normalizer(String s){
+        String r = Normalizer.normalize(s, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "")
+                .toUpperCase();
+        return r;
     }
 }

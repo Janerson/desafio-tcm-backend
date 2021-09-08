@@ -19,7 +19,6 @@ public class MunicipioService extends BaseService<MunicipioDTO> {
 
 
     public Page<MunicipioDTO> listarPaginado(String query, Pageable pageable) {
-        //List<MunicipioDTO> municipios = Objects.isNull(query) ? listarTodos() : pesquisarPorQuery(query);
         return paginador(pesquisarPorQuery(query), pageable);
     }
 
